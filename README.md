@@ -66,15 +66,15 @@ Next, from within the `web-proxy` VM, display the content of `/etc/nginx/nginx.c
 
 Finally, you have to configure NGINX service in the `web-proxy` VM to do the following:
 <li>Listen on port 80 for http traffic.</li>
-<li>When it receives http (80) requests from clients that used `web-1.com` domain name, it proxies their requests to <code>http://10.10.10.11</code>.</li>
-<li>When it receives http (80) requests from clients that used `web-2.com` domain name, it proxies their requests to `http://10.10.10.12`.</li>
+<li>When it receives http (80) requests from clients that used <code>web-1.com</code> domain name, it proxies their requests to <code>http://10.10.10.11</code>.</li>
+<li>When it receives http (80) requests from clients that used <code>web-2.com</code> domain name, it proxies their requests to <code>http://10.10.10.12</code>.</li>
 
 You can check your setup by running:
-<li>`curl web-1.com` (returns the `index.html` of `web-1` VM)</li>
-<li>`curl web-2.com`(returns the `index.html` of `web-2` VM)</li>
-<li>`curl web-1.com/web-1.html` (returns the `web-1.html` of `web-1` VM)</li>
-<li>`curl web-2.com/web-2.html` (returns the `web-2.html` of `web-2` VM)</li>
-<li>`curl web-1.com/web-2.html` (returns `404 not found`).</li>
-<li>`curl web-2.com/web-1.html` (returns `404 not found`).</li>
+<li><code>curl web-1.com</code> (returns the <code>index.html</code> of <code>web-1</code> VM)</li>
+<li><code>curl web-2.com</code>(returns the <code>index.html</code> of <code>web-2</code> VM)</li>
+<li><code>curl web-1.com/web-1.html</code> (returns the <code>web-1.html</code> of <code>web-1</code> VM)</li>
+<li><code>curl web-2.com/web-2.html</code> (returns the <code>web-2.html</code> of <code>web-2</code> VM)</li>
+<li><code>curl web-1.com/web-2.html</code> (returns <code>404 not found</code>).</li>
+<li><code>curl web-2.com/web-1.html</code> (returns <code>404 not found</code>).</li>
 
 Start experimenting on your own. When you finish, you can take a look at the scripts provided in the `material` folder to verify you configuration.
