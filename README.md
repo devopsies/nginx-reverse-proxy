@@ -10,7 +10,7 @@ NGINX, is a web server that can also be used as a reverse proxy, load balancer, 
 
 In this workshop, the NGINX setup is performed inside Vagrant VMs. In this workshop we will try to implement the following architecture:
 
-<img src="target-arch"/>
+<img src="imgs/target-arch.png"/>
 
 The Vagrantfile in the material folder contains the VMs definition and can be run using `vagrant up --provider virtualbox`, which brings up the VMs and the required network configuration or a similar one. It is better to always check up the networking configuration of each VM after issuing `vagrant ssh vm-hostname` by running `ip addr` from within the VM. The rest of the configuration is provided in bash scripts but is not automatically set up. I advise students not to copy paste them, and try to finish the workshop on their own, then use the provided scripts for verification.
 
