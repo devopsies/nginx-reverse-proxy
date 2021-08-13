@@ -66,7 +66,7 @@ Next, from within the `web-proxy` VM, display the content of `/etc/nginx/nginx.c
 
 Finally, you have to configure NGINX service in the `web-proxy` VM to do the following:
 <li>Listen on port 80 for http traffic.</li>
-<li>When it receives http (80) requests from clients that used `web-1.com` domain name, it proxies their requests to `http://10.10.10.11`.</li>
+<li>When it receives http (80) requests from clients that used `web-1.com` domain name, it proxies their requests to <code>http://10.10.10.11</code>.</li>
 <li>When it receives http (80) requests from clients that used `web-2.com` domain name, it proxies their requests to `http://10.10.10.12`.</li>
 
 You can check your setup by running:
