@@ -8,15 +8,15 @@ NGINX, is a web server that can also be used as a reverse proxy, load balancer, 
 
 ## Start using NGINX
 
-In this workshop, the NGINX setup is performed inside Vagrant VMs. In this workshop we will try to implement the following architecture:
+In this workshop, the NGINX setup is performed inside Vagrant VMs. We will try to implement the following architecture:
 
 <img src="imgs/target-arch.png"/>
 
-The Vagrantfile in the material folder contains the VMs definition and can be run using `vagrant up --provider virtualbox`, which brings up the VMs and the required network configuration or a similar one. It is better to always check up the networking configuration of each VM after issuing `vagrant ssh vm-hostname` by running `ip addr` from within the VM. The rest of the configuration is provided in bash scripts but is not automatically set up. I advise students not to copy paste them, and try to finish the workshop on their own, then use the provided scripts for verification.
+The Vagrantfile in the material folder contains the VMs definition and can be run using `vagrant up --provider virtualbox`, which brings up the VMs and the required network configuration. You can check up the networking configuration of each VM after issuing `vagrant ssh vm-hostname` by running `ip addr` from within the VM. The rest of the configuration is provided in bash scripts but is not automatically set up. I advise students not to copy paste them, and try to finish the workshop on their own, then use the provided scripts for verification.
 
 ### Launching Vagrant machines
 
-In this workshop, 3 Vagrant VMs will consume 512 MB of RAM and will use 1 vCPU (total of 1.5 GB and 3 vCPUs). Run the following commands from within the `material` folder to start the Vagrant VMs:
+In this workshop, 4 Vagrant VMs will consume 512 MB of RAM and will use 1 vCPU (total of 2 GB). Run the following commands from within the `material` folder to start the Vagrant VMs:
 
 ```bash
 vagrant up --provider virtualbox
