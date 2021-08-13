@@ -51,7 +51,7 @@ Perform this same setup on the `web-2` VM, (its IP address is `10.10.10.12`). Ma
 
 ### Installing NGINX and running a reverse proxy
 
-Next, ssh into the third VM `web-proxy` and install NGINX the same way. The service will automatically start serving the default web page as ususal. The `web-proxy` VM should be using `10.10.10.10` IP address. Verify by running `curl 10.10.10.10` from within the `web-proxy` VM. Don't bother chaning the content of the HTML.
+Next, ssh into the third VM `web-proxy` and install NGINX the same way. The service will automatically start serving the default web page as ususal. The `web-proxy` VM should be using `10.10.10.10` IP address. Verify by running `curl 10.10.10.10` from within the `web-proxy` VM. Don't bother changing the content of the HTML.
 
 Next, ssh into the `client` VM. Modify the `hosts` file `/etc/hosts` and add these two lines at the end:
 
@@ -60,7 +60,7 @@ Next, ssh into the `client` VM. Modify the `hosts` file `/etc/hosts` and add the
 10.10.10.10 web-2.com
 ```
 
-This way, we're instructing the `client` VM to resolve `web-1.com` and `web-2.com` to the same private IP of the `web-proxy` VM, without having to rely on an external DNS. Run `curl web-1.com` and `curl web-2.com` to visit both domain names to confirm the setup. Both should display the default web page of the `web-proxy` VM. `curl web-1/com/web-1.html` should return `404 not found`.
+This way, we're instructing the `client` VM to resolve `web-1.com` and `web-2.com` to the same private IP of the `web-proxy` VM, without having to rely on an external DNS. Run `curl web-1.com` and `curl web-2.com` to visit both domain names to confirm the setup. Both should display the default web page of the `web-proxy` VM. `curl web-1.com/web-1.html` and `curl web-2.com/web-2.html` should return `404 not found`.
 
 Next, from within the `web-proxy` VM, display the content of `/etc/nginx/nginx.conf` and figure out which configuration section instructs NGINX to serve that default web page. Study it carefully (for you own learning :D) then remove it, since we'll be configuring this NGINX service to work as a reverse-proxy.
 
@@ -69,6 +69,12 @@ Finally, you have to configure NGINX service in the `web-proxy` VM to do the fol
 <li>When it receives http (80) requests from clients that used `web-1.com` domain name, it proxies their requests to `http://10.10.10.11`.</li>
 <li>When it receives http (80) requests from clients that used `web-2.com` domain name, it proxies their requests to `http://10.10.10.12`.</li>
 
-You can check your setup by running `curl web-1.com` (returns the `index.html` of `web-1` VM), `curl web-2.com`(returns the `index.html` of `web-2` VM), `curl web-1.com/web-1.html` (returns the `web-1.html` of `web-1` VM) and `curl web-1.com/web-2.html` (returns `404 not found`).
+You can check your setup by running:
+<li>`curl web-1.com` (returns the `index.html` of `web-1` VM)</li>
+<li>`curl web-2.com`(returns the `index.html` of `web-2` VM)</li>
+<li>`curl web-1.com/web-1.html` (returns the `web-1.html` of `web-1` VM)</li>
+<li>`curl web-2.com/web-2.html` (returns the `web-2.html` of `web-2` VM)</li>
+<li>`curl web-1.com/web-2.html` (returns `404 not found`).</li>
+<li>`curl web-2.com/web-1.html` (returns `404 not found`).</li>
 
 Start experimenting on your own. When you finish, you can take a look at the scripts provided in the `material` folder to verify you configuration.
