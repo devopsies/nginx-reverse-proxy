@@ -60,7 +60,7 @@ Next, ssh into the `client` VM. Modify the `hosts` file `/etc/hosts` and add the
 10.10.10.10 web-2.com
 ```
 
-This way, we're instructing the `client` VM to resolve `web-1.com` and `web-2.com` to the same private IP of the `web-proxy` VM, without having to rely on an external DNS. Run `curl web-1.com` and `curl web-2.com` to visit both domain names to confirm the setup. Both should display the default web page of the `web-proxy` VM. `curl web-1.com/web-1.html` and `curl web-2.com/web-2.html` should return `404 not found`.
+This way, we're instructing the `client` VM to resolve `web-1.com` and `web-2.com` to the same private IP of the `web-proxy` VM, without having to rely on an external DNS. Run `curl web-1.com` and `curl web-2.com` to visit both domain names to confirm the setup. Both should display the default web page of the `web-proxy` VM. `curl web-1.com/web-1.html` and `curl web-2.com/web-2.html` from the `client` VM should return `404 not found`.
 
 Next, from within the `web-proxy` VM, display the content of `/etc/nginx/nginx.conf` and figure out which configuration section instructs NGINX to serve that default web page. Study it carefully (for you own learning :D) then remove it, since we'll be configuring this NGINX service to work as a reverse-proxy.
 
@@ -69,7 +69,7 @@ Finally, you have to configure NGINX service in the `web-proxy` VM to do the fol
 <li>When it receives http (80) requests from clients that used <code>web-1.com</code> domain name, it proxies their requests to <code>http://10.10.10.11</code>.</li>
 <li>When it receives http (80) requests from clients that used <code>web-2.com</code> domain name, it proxies their requests to <code>http://10.10.10.12</code>.</li>
 
-You can check your setup by running:
+You can check your setup by running these commands from the `client` VM:
 <li><code>curl web-1.com</code> (returns the <code>index.html</code> of <code>web-1</code> VM)</li>
 <li><code>curl web-2.com</code>(returns the <code>index.html</code> of <code>web-2</code> VM)</li>
 <li><code>curl web-1.com/web-1.html</code> (returns the <code>web-1.html</code> of <code>web-1</code> VM)</li>
