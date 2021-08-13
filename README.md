@@ -34,7 +34,7 @@ Since we're using a Ubuntu server 20.04 Vagrant Box, installing NGINX is as simp
 
 ```bash
 sudo apt update
-sudo apt install nginx
+sudo apt install -y nginx
 ```
 
 You can check the NGINX service by running:
@@ -43,40 +43,32 @@ You can check the NGINX service by running:
 sudo service nginx status
 ```
 
-You can instruct NGINX to automatically start after reboots by running:
-```bash
-sudo service nginx enable
-```
+If you're on the `web-1` VM, you can run `curl 10.10.10.11` to view the web page. The NGINX service is aleady running and serving a default web page.
 
-Run the following command to check the VM's networking configuration:
+Modify the content of `/var/www/html/index.html` from within the `web-1` VM to display other content, then try `curl` again. Also, create a file `/var/www/html/web-1.html` with unique content of your choice. Verify by using `curl 10.10.10.11/web-1.html`.
 
-```bash
-ip addr
-```
-
-You can use your web browser to visit the private IP address `http://web-1-private-ip` provided by the last bash command. The NGINX service is aleady running and serving a default web page.
-
-Modify the content of `/usr/share/nginx/html/index.html` from within the `web-1` VM to display other content, then refresh the web page. Also, create a file `/usr/share/nginx/html/web-1.html` with unique content of your choice. Verify by visiting `http://web-1-private-ip/web-1.html`.
-
-Perform this same setup on the `web-2` VM. Make sure to display different content on the web pages.
+Perform this same setup on the `web-2` VM, (its IP address is `10.10.10.12`). Make sure to display different content on the web pages.
 
 ### Installing NGINX and running a reverse proxy
 
-Next, ssh into the third VM `web-proxy` and install NGINX the same way. The service will automatically start serving the default web page as ususal. Run the `ip addr` command to figure out what private IP is this VM using. In your host machine, modify the `hosts` file (in ubuntu and most linux distribution, you can find it under `/etc/hosts`. For windows, look it up on the Internet :p) and add two lines at the end:
+Next, ssh into the third VM `web-proxy` and install NGINX the same way. The service will automatically start serving the default web page as ususal. The `web-proxy` VM should be using `10.10.10.10` IP address. Verify by running `curl 10.10.10.10` from within the `web-proxy` VM. Don't bother chaning the content of the HTML.
 
-```bash
-cat << EOF | tee -a /etc/hosts
-web-proxy-private-ip web-1.com
-web-proxy-private-ip web-2.com
-EOF
+Next, ssh into the `client` VM. Modify the `hosts` file `/etc/hosts` and add these two lines at the end:
+
+```
+10.10.10.10 web-1.com
+10.10.10.10 web-2.com
 ```
 
-This way, we're instructing your host machine to resolve `web-1.com` and `web-2.com` to the same private IP of the `web-proxy` VM, without having to rely on an external DNS. Visit both domain names with your browser to confirm the setup.
+This way, we're instructing the `client` VM to resolve `web-1.com` and `web-2.com` to the same private IP of the `web-proxy` VM, without having to rely on an external DNS. Run `curl web-1.com` and `curl web-2.com` to visit both domain names to confirm the setup. Both should display the default web page of the `web-proxy` VM. `curl web-1/com/web-1.html` should return `404 not found`.
 
 Next, from within the `web-proxy` VM, display the content of `/etc/nginx/nginx.conf` and figure out which configuration section instructs NGINX to serve that default web page. Study it carefully (for you own learning :D) then remove it, since we'll be configuring this NGINX service to work as a reverse-proxy.
 
-Finally, you have to configure NGINX to do the following:
-<li>When it receives http (80) requests from clients that used `web-1.com` domain name, it proxies their requests to `http://web-1-private-ip`</li>
-<li>When it receives http (80) requests from clients that used `web-2.com` domain name, it proxies their requests to `http://web-2-private-ip`</li>
+Finally, you have to configure NGINX service in the `web-proxy` VM to do the following:
+<li>Listen on port 80 for http traffic.</li>
+<li>When it receives http (80) requests from clients that used `web-1.com` domain name, it proxies their requests to `http://10.10.10.11`.</li>
+<li>When it receives http (80) requests from clients that used `web-2.com` domain name, it proxies their requests to `http://10.10.10.12`.</li>
+
+You can check your setup by running `curl web-1.com` (returns the `index.html` of `web-1` VM), `curl web-2.com`(returns the `index.html` of `web-2` VM), `curl web-1.com/web-1.html` (returns the `web-1.html` of `web-1` VM) and `curl web-1.com/web-2.html` (returns `404 not found`).
 
 Start experimenting on your own. When you finish, you can take a look at the scripts provided in the `material` folder to verify you configuration.
