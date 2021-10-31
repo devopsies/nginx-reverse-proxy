@@ -45,7 +45,7 @@ sudo service nginx status
 
 If you're on the `web-1` VM, you can run `curl 10.10.10.11` to view the web page. The NGINX service is aleady running and serving a default web page.
 
-Modify the content of `/var/www/html/index.html` from within the `web-1` VM to display other content, then try `curl` again. Also, create a file `/var/www/html/web-1.html` with unique content of your choice. Verify by using `curl 10.10.10.11/web-1.html`.
+Modify the content of `/usr/share/nginx/html/index.html` from within the `web-1` VM to display other content, then try `curl` again. Also, create a file `/usr/share/nginx/html/web-1.html` with unique content of your choice. Verify by using `curl 10.10.10.11/web-1.html`.
 
 Perform this same setup on the `web-2` VM, (its IP address is `10.10.10.12`). Make sure to display different content on the web pages.
 
