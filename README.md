@@ -1,6 +1,6 @@
 # DevSecOps Workshops: NGINX Reverse Proxy
 
-This is a brief documentation of NGINX, followed by a workshop. For the workshop material, visit <a href="https://github.com/mdnfiras/devsecops-nginx-proxy" target="_blank">github.com/mdnfiras/devsecops-nginx-proxy</a>. For a complete documentation, visit <a href="https://nginx.org/en/docs/" target="_blank">nginx.org/en/docs</a>.
+This is a brief documentation of NGINX, followed by a workshop. For the workshop material, visit <a href="https://github.com/devopsies/nginx-reverse-proxy" target="_blank">github.com/devopsies/nginx-reverse-proxy</a>. For a complete documentation, visit <a href="https://nginx.org/en/docs/" target="_blank">nginx.org/en/docs</a>.
 
 ## What is NGINX?
 
