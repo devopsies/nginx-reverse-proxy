@@ -3,5 +3,9 @@
 apt update
 apt install -y nginx
 
-cp /vagrant/web-2.index.html /usr/share/nginx/html/index.html
-cp /vagrant/web-2.html /usr/share/nginx/html/web-2.html
+systemctl is-active nginx
+
+mkdir /var/www/html/api
+echo "API works!" | tee /var/www/html/api/index.nginx-debian.html
+
+curl localhost/api/
